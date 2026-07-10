@@ -1,6 +1,5 @@
 import Foundation
 
-
 extension Locale {
     static func is12HoursFormat() -> Bool {
         DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)?.range(of: "a") != nil
@@ -36,8 +35,7 @@ public enum DateTimeType {
         } else {
             formatter.timeZone = TimeZone(abbreviation: "UTC")
         }
-        
-        
+
         formatter.dateFormat = {
             switch self {
             case .date:
@@ -48,7 +46,7 @@ public enum DateTimeType {
                     : "yyyyMMdd'T'HHmmss"
             }
         }()
-        
+
         formatter.locale = {
             if Locale.is12HoursFormat() {
                 return Locale(identifier: "en_US_POSIX")
@@ -56,7 +54,7 @@ public enum DateTimeType {
                 return Locale.current
             }
         }()
-        
+
         return formatter
     }
 }

@@ -25,7 +25,11 @@ extension XCTestCase {
 
         // Ensure the file exists
         guard FileManager.default.fileExists(atPath: fileURL.path) else {
-            throw NSError(domain: "FileNotFoundError", code: 1, userInfo: [NSLocalizedDescriptionKey: "File \(filename).\(ext) not found at path \(fileURL.path)."])
+            throw NSError(
+                domain: "FileNotFoundError",
+                code: 1,
+                userInfo: [NSLocalizedDescriptionKey: "File \(filename).\(ext) not found at path \(fileURL.path)."]
+            )
         }
 
         // Read the contents of the file
