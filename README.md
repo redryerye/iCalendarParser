@@ -64,3 +64,4 @@ iCalendarParser is available under the MIT license. See [LICENSE](LICENSE) for m
 ## Credits
 
 - [chan614/iCalSwift](https://github.com/chan614/iCalSwift) (Inspired to create an initial implementation)
+- [jswallez](https://github.com/jswallez) (Special thanks 💛)
