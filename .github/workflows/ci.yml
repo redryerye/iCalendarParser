@@ -9,6 +9,9 @@ jobs:
     runs-on: macos-latest
 
     steps:
+      - name: Install SwiftLint
+        run: brew install swiftlint
+
       - name: Current platform versions
         run: |
           xcodebuild -version
