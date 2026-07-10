@@ -66,7 +66,9 @@ public struct ICParser {
             .replacingOccurrences(of: "\r\n", with: "\n")
             .replacingOccurrences(of: "\r", with: "\n")
         // Replace line folding sequences
-        let unfoldedICS = normalizedICS.replacingOccurrences(of: "\n ", with: "")
+        let unfoldedICS = normalizedICS
+            .replacingOccurrences(of: "\n ", with: "")
+            .replacingOccurrences(of: "\n\t", with: "")
 
         // Split by \n
         let properties: [ICProperty] = unfoldedICS
@@ -151,7 +153,7 @@ public struct ICParser {
             var event = ICEvent()
 
             event.attendees = component.buildAttendees(of: Constant.Property.attendee)
-            event.categories = component.buildProperty(of: Constant.Property.categories)?.components(separatedBy: ",")
+            event.categories = component.buildCategories(of: Constant.Property.categories)
             event.classification = component.buildProperty(of: Constant.Property.classification)
             event.description = component.buildProperty(of: Constant.Property.description)
             event.dtCreated = component.buildProperty(of: Constant.Property.created)?.date

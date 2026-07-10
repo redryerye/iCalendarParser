@@ -44,4 +44,12 @@ final class GetPropertiesTests: XCTestCase {
         """
         XCTAssertEqual(properties.first?.name, name)
     }
+
+    func testUnfoldsLineBeginningWithTab() {
+        let rawIcs = "SUMMARY:Hello\r\n\tWorld"
+
+        let properties = ICParser().getProperties(from: rawIcs)
+
+        XCTAssertEqual(properties.first?.value, "HelloWorld")
+    }
 }

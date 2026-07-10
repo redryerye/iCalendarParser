@@ -47,4 +47,24 @@ final class ICParserTests: XCTestCase {
 
         XCTAssertEqual(uniqueCategories.count, 19)
     }
+
+    func testCategoriesSupportEscapedCommasAndRepeatedProperties() throws {
+        let iCalString = """
+        BEGIN:VCALENDAR\r
+        VERSION:2.0\r
+        PRODID:-//Example Inc//Calendar//EN\r
+        BEGIN:VEVENT\r
+        UID:category-test\r
+        DTSTAMP:20240728T120000Z\r
+        CATEGORIES:Board\\, Executive,Work\r
+        CATEGORIES:Personal\r
+        END:VEVENT\r
+        END:VCALENDAR
+        """
+
+        let calendar = try XCTUnwrap(sut.calendar(from: iCalString))
+        let event = try XCTUnwrap(calendar.events.first)
+
+        XCTAssertEqual(event.categories, ["Board, Executive", "Work", "Personal"])
+    }
 }

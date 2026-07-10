@@ -103,6 +103,12 @@ struct PropertyBuilder {
         }
     }
 
+    static func buildCategories(
+        from props: [ICProperty]
+    ) -> [String] {
+        props.flatMap { splitTextList($0.value) }
+    }
+
     // MARK: - Private functions
 
     /// Returns an array of params for the given value
@@ -160,5 +166,42 @@ struct PropertyBuilder {
         value
             .components(separatedBy: ",")
             .compactMap { .from($0) }
+    }
+
+    private static func splitTextList(
+        _ value: String
+    ) -> [String] {
+        var result = [String]()
+        var current = ""
+        var isEscaped = false
+
+        for character in value {
+            if isEscaped {
+                switch character {
+                case "n", "N":
+                    current.append("\n")
+                case "\\", ",", ";":
+                    current.append(character)
+                default:
+                    current.append("\\")
+                    current.append(character)
+                }
+                isEscaped = false
+            } else if character == "\\" {
+                isEscaped = true
+            } else if character == "," {
+                result.append(current)
+                current = ""
+            } else {
+                current.append(character)
+            }
+        }
+
+        if isEscaped {
+            current.append("\\")
+        }
+        result.append(current)
+
+        return result
     }
 }
