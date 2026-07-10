@@ -26,7 +26,7 @@ final class DateTimeTypeTests: XCTestCase {
         let wrongDate = dateTime.type.dateFormatter().date(from: "19700327T020000")
         XCTAssertNotEqual(dateTime.date, wrongDate)
     }
-    
+
     func testDateFormatterUsesFixedLocale() throws {
         let formatter = DateTimeType.dateTime.dateFormatter(tzId: "UTC")
 
