@@ -1,8 +1,8 @@
 # iCalendarParser
 
 <p>
-    <a href="https://github.com/dmail-me/iCalendarParser/actions">
-      <img src="https://github.com/dmail-me/iCalendarParser/workflows/ci/badge.svg?branch=main">
+    <a href="https://github.com/redryerye/iCalendarParser/actions">
+      <img src="https://github.com/redryerye/iCalendarParser/workflows/ci/badge.svg?branch=main">
     </a>
     <img src="https://img.shields.io/badge/Swift-5.7-ff69b4.svg" />
     <img src="https://img.shields.io/badge/license-MIT-black.svg" />
@@ -16,7 +16,7 @@ To use `iCalendarParser` just add it as Swift Package Manager dependency:
 
 ### via Xcode
 
-Open your project, click on File → Add Packages, enter the repository URL (`https://github.com/dmail-me/iCalendarParser.git`), and add the package product to your app target.
+Open your project, click on File → Add Packages, enter the repository URL (`https://github.com/redryerye/iCalendarParser.git`), and add the package product to your app target.
 
 ### via SPM Package.swift
 
@@ -24,8 +24,8 @@ Open your project, click on File → Add Packages, enter the repository URL (`ht
 dependencies: [
     .package(
       name: "iCalendarParser",
-      url: "https://github.com/dmail-me/iCalendarParser",
-      from: "0.1.0"
+      url: "https://github.com/redryerye/iCalendarParser",
+      from: "0.3.0"
     )
 ]
 ```
@@ -64,4 +64,3 @@ iCalendarParser is available under the MIT license. See [LICENSE](LICENSE) for m
 ## Credits
 
 - [chan614/iCalSwift](https://github.com/chan614/iCalSwift) (Inspired to create an initial implementation)
-
