@@ -65,6 +65,7 @@ extension Constant {
         static let cname = "CN"
 
         static let attachment: String = "ATTACH"
+        static let categories: String = "CATEGORIES"
         static let created: String = "CREATED"
         static let classification: String = "CLASS"
         static let description: String = "DESCRIPTION"

@@ -60,22 +60,29 @@ public struct ICParser {
         )
     }
 
-    func getProperties(
-        from ics: String
-    ) -> [ICProperty] {
-        return ics
-            .replacingOccurrences(of: "\r\n ", with: "")
-            .components(separatedBy: "\r\n")
+    func getProperties(from ics: String) -> [ICProperty] {
+        // Normalize line endings to \n
+        let normalizedICS = ics
+            .replacingOccurrences(of: "\r\n", with: "\n")
+            .replacingOccurrences(of: "\r", with: "\n")
+        // Replace line folding sequences
+        let unfoldedICS = normalizedICS.replacingOccurrences(of: "\n ", with: "")
+
+        // Split by \n
+        let properties: [ICProperty] = unfoldedICS
+            .components(separatedBy: "\n")
             .map { $0.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: true) }
             .filter { $0.count > 1 }
             .map { (String($0[0]), String($0[1])) }
+
+        return properties
     }
 
     private func getProperty(
         name: String,
         from elements: [ICProperty]
     ) -> ICProperty? {
-        return elements
+        elements
             .filter { $0.name.hasPrefix(name) }
             .first
     }
@@ -144,6 +151,7 @@ public struct ICParser {
             var event = ICEvent()
 
             event.attendees = component.buildAttendees(of: Constant.Property.attendee)
+            event.categories = component.buildProperty(of: Constant.Property.categories)?.components(separatedBy: ",")
             event.classification = component.buildProperty(of: Constant.Property.classification)
             event.description = component.buildProperty(of: Constant.Property.description)
             event.dtCreated = component.buildProperty(of: Constant.Property.created)?.date
