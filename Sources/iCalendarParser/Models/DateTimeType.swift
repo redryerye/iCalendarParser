@@ -1,23 +1,5 @@
 import Foundation
 
-extension Locale {
-    static func is12HoursFormat() -> Bool {
-        DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: Locale.current)?.range(of: "a") != nil
-    }
-
-    static func is24HoursFormat() -> Bool {
-        !Self.is12HoursFormat()
-    }
-
-    func is12HoursFormat() -> Bool {
-        DateFormatter.dateFormat(fromTemplate: "j", options: 0, locale: self)?.range(of: "a") != nil
-    }
-
-    func is24HoursFormat() -> Bool {
-        !is12HoursFormat()
-    }
-}
-
 public enum DateTimeType {
     case date
     case dateTime
@@ -27,6 +9,7 @@ public enum DateTimeType {
         tzId: String? = nil
     ) -> DateFormatter {
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
 
         if let tzId {
             formatter.timeZone = TimeZone(identifier: tzId)
@@ -44,14 +27,6 @@ public enum DateTimeType {
                 return tzId == nil
                     ? "yyyyMMdd'T'HHmmss'Z'"
                     : "yyyyMMdd'T'HHmmss"
-            }
-        }()
-
-        formatter.locale = {
-            if Locale.is12HoursFormat() {
-                return Locale(identifier: "en_US_POSIX")
-            } else {
-                return Locale.current
             }
         }()
 
