@@ -46,8 +46,6 @@ let calendar: ICalendar? = parser.calendar(from: rawICS)
 
 iCalendarParser is currently not feature complete yet. While it requires an additional implementation to be fully compatible with RFC5545, we appreciate contributions from the community to help us improve the library. 
 
-However, it's worth noting that the library is being used in production within the [Dmail.me app](https://apps.apple.com/us/app/dmail-me-dm-the-world/id6444334972), and we are committed to constantly improving it.
-
 ## TODO
 
 - Parse To-Do, Journal, Free/Busy, and Alarm components
