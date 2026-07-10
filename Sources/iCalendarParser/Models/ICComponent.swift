@@ -78,6 +78,17 @@ struct ICComponent {
         return PropertyBuilder.buildAttendees(from: props)
     }
 
+    /// Returns category TEXT values from all matching properties.
+    func buildCategories(
+        of name: String
+    ) -> [String]? {
+        guard let props = getProperties(name: name), !props.isEmpty else {
+            return nil
+        }
+
+        return PropertyBuilder.buildCategories(from: props)
+    }
+
     /// Returns all non-standard properties if exists
     func getNonStandardProperties() -> [String: String]? {
         var dict = [String: String]()
