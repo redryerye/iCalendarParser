@@ -25,7 +25,7 @@ dependencies: [
     .package(
       name: "iCalendarParser",
       url: "https://github.com/redryerye/iCalendarParser",
-      from: "0.3.0"
+      from: "0.4.0"
     )
 ]
 ```
