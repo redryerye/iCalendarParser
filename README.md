@@ -48,8 +48,51 @@ iCalendarParser is currently not feature complete yet. While it requires an addi
 
 ## TODO
 
-- Parse To-Do, Journal, Free/Busy, and Alarm components
-- Add additional properties in `ICEvent`
+- [ ] Components
+  - [x] Parse `VEVENT`
+  - [x] Parse `VTIMEZONE`
+  - [ ] Parse `VTODO`
+  - [ ] Parse `VJOURNAL`
+  - [ ] Parse `VFREEBUSY`
+  - [ ] Parse `VALARM`
+- [ ] `VEVENT` properties
+  - [x] Add `COMMENT`, `CONTACT`, and `RESOURCES`
+  - [x] Add `EXDATE` and `RDATE`
+  - [ ] Add `DURATION`
+  - [ ] Add `ATTACH`
+  - [ ] Add `GEO`
+  - [ ] Add `RELATED-TO`
+  - [ ] Add `REQUEST-STATUS`
+- [ ] Recurrence
+  - [x] Parse basic `RRULE`
+  - [ ] Expand recurring events into instances
+  - [ ] Apply `EXDATE`
+  - [ ] Apply `RDATE`
+  - [ ] Handle `RECURRENCE-ID` overrides
+- [ ] Property parameters
+  - [ ] Preserve common parameters on parsed properties
+  - [ ] Support quoted parameter values
+  - [ ] Support multi-value parameters
+  - [ ] Support `ALTREP`, `LANGUAGE`, `CN`, `ROLE`, `PARTSTAT`, `RSVP`, `TZID`, and `VALUE`
+- [ ] Value types
+  - [x] Parse `DATE`
+  - [x] Parse `DATE-TIME`
+  - [ ] Parse `DURATION`
+  - [ ] Parse `PERIOD`
+  - [ ] Parse `URI`
+  - [ ] Parse `UTC-OFFSET`
+- [ ] Serialization
+  - [ ] Format calendars back to valid `.ics`
+  - [ ] Fold long lines correctly
+  - [ ] Escape text values correctly
+- [ ] Validation
+  - [ ] Validate required properties per component
+  - [ ] Validate mutually exclusive properties, such as `DTEND` and `DURATION`
+  - [ ] Validate property cardinality rules
+- [ ] Compatibility
+  - [ ] Preserve unknown standard properties
+  - [ ] Preserve `X-` properties and parameters
+  - [ ] Add fixture coverage from real-world calendars
 
 ## Contributing
 

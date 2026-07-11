@@ -25,6 +25,18 @@ struct PropertyBuilder {
         }
     }
 
+    static func buildDateTimes(
+        from props: [ICProperty]
+    ) -> [ICDateTime] {
+        props.flatMap { prop in
+            prop.value
+                .components(separatedBy: ",")
+                .compactMap { value in
+                    buildDateTime(from: (name: prop.name, value: value))
+                }
+        }
+    }
+
     // swiftlint:disable:next cyclomatic_complexity
     static func buildRRule(
         from prop: ICProperty

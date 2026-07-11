@@ -93,4 +93,35 @@ final class ICParserTests: XCTestCase {
         XCTAssertEqual(event.contacts, ["Desk, Front", "Security", "Facilities"])
         XCTAssertEqual(event.resources, ["Projector", "Whiteboard, mobile", "Speakerphone"])
     }
+
+    func testEventRecurrenceDatePropertiesSupportRepeatedPropertiesAndCommaSeparatedValues() throws {
+        let iCalString = """
+        BEGIN:VCALENDAR\r
+        VERSION:2.0\r
+        PRODID:-//Example Inc//Calendar//EN\r
+        BEGIN:VEVENT\r
+        UID:recurrence-dates-test\r
+        DTSTAMP:20240728T120000Z\r
+        EXDATE:20240801T120000Z,20240802T120000Z\r
+        EXDATE;VALUE=DATE:20240803\r
+        RDATE:20240805T120000Z\r
+        RDATE;VALUE=DATE:20240806,20240807\r
+        END:VEVENT\r
+        END:VCALENDAR
+        """
+
+        let calendar = try XCTUnwrap(sut.calendar(from: iCalString))
+        let event = try XCTUnwrap(calendar.events.first)
+
+        XCTAssertEqual(event.exceptionDates?.map(\.type), [.dateTime, .dateTime, .date])
+        XCTAssertEqual(event.recurrenceDates?.map(\.type), [.dateTime, .date, .date])
+        XCTAssertEqual(
+            event.exceptionDates?.map { $0.type.dateFormatter(tzId: $0.tzId).string(from: $0.date) },
+            ["20240801T120000Z", "20240802T120000Z", "20240803"]
+        )
+        XCTAssertEqual(
+            event.recurrenceDates?.map { $0.type.dateFormatter(tzId: $0.tzId).string(from: $0.date) },
+            ["20240805T120000Z", "20240806", "20240807"]
+        )
+    }
 }
