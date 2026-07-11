@@ -155,6 +155,8 @@ public struct ICParser {
             event.attendees = component.buildAttendees(of: Constant.Property.attendee)
             event.categories = component.buildCategories(of: Constant.Property.categories)
             event.classification = component.buildProperty(of: Constant.Property.classification)
+            event.comments = component.buildCategories(of: Constant.Property.comment)
+            event.contacts = component.buildCategories(of: Constant.Property.contact)
             event.description = component.buildProperty(of: Constant.Property.description)
             event.dtCreated = component.buildProperty(of: Constant.Property.created)?.date
             event.dtEnd = component.buildProperty(of: Constant.Property.dtEnd)
@@ -165,6 +167,7 @@ public struct ICParser {
             event.organizer = component.buildProperty(of: Constant.Property.organizer)
             event.priority = component.buildProperty(of: Constant.Property.priority)
             event.recurrenceId = component.buildProperty(of: Constant.Property.recurrenceId)
+            event.resources = component.buildCategories(of: Constant.Property.resources)
             event.sequence = component.buildProperty(of: Constant.Property.sequence)
             event.status = component.buildProperty(of: Constant.Property.status)
             event.summary = component.buildProperty(of: Constant.Property.summary)
