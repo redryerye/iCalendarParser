@@ -31,9 +31,18 @@ public struct ICEvent: ICComponentable {
     /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.1.3)
     public var classification: String?
 
-    // var comment: [String]?
+    /// Provides non-processing information intended to provide a comment to the calendar user.
+    ///
+    /// See more in [RFC 5545](
+    /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.1.4)
+    public var comments: [String]?
 
-    // var contact: [String]?
+    /// Represents contact information or alternately a reference to contact information associated with
+    /// the calendar component.
+    ///
+    /// See more in [RFC 5545](
+    /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.4.2)
+    public var contacts: [String]?
 
     /// Provides a more complete description of the calendar component
     /// than that provided by the "SUMMARY" property.
@@ -155,7 +164,11 @@ public struct ICEvent: ICComponentable {
 
     // var requestStatus
 
-    // var resources: [String]?
+    /// Defines the equipment or resources anticipated for an activity specified by a calendar component.
+    ///
+    /// See more in [RFC 5545](
+    /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.1.10)
+    public var resources: [String]?
 
     /// Defines the revision sequence number of the  calendar component within a sequence of revisions.
     ///
@@ -197,6 +210,8 @@ public struct ICEvent: ICComponentable {
         attendees: [ICAttendee]? = nil,
         categories: [String]? = nil,
         classification: String? = nil,
+        comments: [String]? = nil,
+        contacts: [String]? = nil,
         description: String? = nil,
         dtCreated: Date? = nil,
         dtEnd: ICDateTime? = nil,
@@ -208,6 +223,7 @@ public struct ICEvent: ICComponentable {
         organizer: String? = nil,
         priority: Int? = nil,
         recurrenceId: ICDateTime? = nil,
+        resources: [String]? = nil,
         sequence: Int? = nil,
         status: String? = nil,
         summary: String? = nil,
@@ -218,6 +234,8 @@ public struct ICEvent: ICComponentable {
         self.attendees = attendees
         self.categories = categories
         self.classification = classification
+        self.comments = comments
+        self.contacts = contacts
         self.description = description
         self.dtCreated = dtCreated
         self.dtEnd = dtEnd
@@ -229,6 +247,7 @@ public struct ICEvent: ICComponentable {
         self.organizer = organizer
         self.priority = priority
         self.recurrenceId = recurrenceId
+        self.resources = resources
         self.sequence = sequence
         self.status = status
         self.summary = summary

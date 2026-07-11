@@ -66,6 +66,8 @@ extension Constant {
 
         static let attachment: String = "ATTACH"
         static let categories: String = "CATEGORIES"
+        static let comment: String = "COMMENT"
+        static let contact: String = "CONTACT"
         static let created: String = "CREATED"
         static let classification: String = "CLASS"
         static let description: String = "DESCRIPTION"
@@ -82,6 +84,7 @@ extension Constant {
         static let recurrenceDates: String = "RDATE"
         static let recurrenceId: String = "RECURRENCE-ID"
         static let recurrenceRule: String = "RRULE"
+        static let resources: String = "RESOURCES"
         static let sequence: String = "SEQUENCE"
         static let status: String = "STATUS"
         static let summary: String = "SUMMARY"
