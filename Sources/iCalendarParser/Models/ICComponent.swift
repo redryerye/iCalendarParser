@@ -89,6 +89,18 @@ struct ICComponent {
         return PropertyBuilder.buildCategories(from: props)
     }
 
+    /// Returns date-time values from all matching properties.
+    func buildDateTimes(
+        of name: String
+    ) -> [ICDateTime]? {
+        guard let props = getProperties(name: name), !props.isEmpty else {
+            return nil
+        }
+
+        let dateTimes = PropertyBuilder.buildDateTimes(from: props)
+        return dateTimes.isEmpty ? nil : dateTimes
+    }
+
     /// Returns all non-standard properties if exists
     func getNonStandardProperties() -> [String: String]? {
         var dict = [String: String]()
