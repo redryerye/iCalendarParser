@@ -86,11 +86,11 @@ public struct ICEvent: ICComponentable {
     /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.2.4)
     public var dtStart: ICDateTime?
 
-    // A positive duration of time.
-    //
-    // See more in [RFC 5545](
-    // https://www.rfc-editor.org/rfc/rfc5545#section-3.8.2.5)
-    // var duration: ICDuration?
+    /// A positive duration of time.
+    ///
+    /// See more in [RFC 5545](
+    /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.2.5)
+    public var duration: ICDuration?
 
     /// The list of DATE-TIME exceptions for recurring events, to-dos, journal entries,
     /// or time zone definitions.
@@ -217,6 +217,7 @@ public struct ICEvent: ICComponentable {
         dtEnd: ICDateTime? = nil,
         dtStamp: Date = Date(),
         dtStart: ICDateTime? = nil,
+        duration: ICDuration? = nil,
         exceptionDates: [ICDateTime]? = nil,
         lastModified: Date? = nil,
         location: String? = nil,
@@ -243,6 +244,7 @@ public struct ICEvent: ICComponentable {
         self.dtEnd = dtEnd
         self.dtStamp = dtStamp
         self.dtStart = dtStart
+        self.duration = duration
         self.exceptionDates = exceptionDates
         self.lastModified = lastModified
         self.location = location
