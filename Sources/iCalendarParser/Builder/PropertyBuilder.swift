@@ -37,6 +37,12 @@ struct PropertyBuilder {
         }
     }
 
+    static func buildDuration(
+        from prop: ICProperty
+    ) -> ICDuration? {
+        ICDuration(rawValue: prop.value)
+    }
+
     // swiftlint:disable:next cyclomatic_complexity
     static func buildRRule(
         from prop: ICProperty

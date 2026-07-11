@@ -124,4 +124,28 @@ final class ICParserTests: XCTestCase {
             ["20240805T120000Z", "20240806", "20240807"]
         )
     }
+
+    func testEventDuration() throws {
+        let iCalString = """
+        BEGIN:VCALENDAR\r
+        VERSION:2.0\r
+        PRODID:-//Example Inc//Calendar//EN\r
+        BEGIN:VEVENT\r
+        UID:duration-test\r
+        DTSTAMP:20240728T120000Z\r
+        DTSTART:20240801T120000Z\r
+        DURATION:P1DT2H30M\r
+        END:VEVENT\r
+        END:VCALENDAR
+        """
+
+        let calendar = try XCTUnwrap(sut.calendar(from: iCalString))
+        let event = try XCTUnwrap(calendar.events.first)
+        let duration = try XCTUnwrap(event.duration)
+
+        XCTAssertEqual(duration.days, 1)
+        XCTAssertEqual(duration.hours, 2)
+        XCTAssertEqual(duration.minutes, 30)
+        XCTAssertNil(duration.seconds)
+    }
 }

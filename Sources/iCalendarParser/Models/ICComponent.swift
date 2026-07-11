@@ -67,6 +67,17 @@ struct ICComponent {
         return PropertyBuilder.buildRRule(from: prop)
     }
 
+    /// Returns `ICDuration` from properties
+    func buildProperty(
+        of name: String
+    ) -> ICDuration? {
+        guard let prop = getProperty(name: name) else {
+            return nil
+        }
+
+        return PropertyBuilder.buildDuration(from: prop)
+    }
+
     /// Returns `[Attendee]` from properties
     func buildAttendees(
         of name: String
