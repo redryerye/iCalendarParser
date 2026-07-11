@@ -2,7 +2,7 @@
 
 <p>
     <a href="https://github.com/redryerye/iCalendarParser/actions">
-      <img src="https://github.com/redryerye/iCalendarParser/workflows/ci/badge.svg?branch=main">
+      <img src="https://github.com/redryerye/iCalendarParser/actions/workflows/ci.yml/badge.svg?branch=main">
     </a>
     <img src="https://img.shields.io/badge/Swift-5.7-ff69b4.svg" />
     <img src="https://img.shields.io/badge/license-MIT-black.svg" />
