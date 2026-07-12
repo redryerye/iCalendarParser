@@ -1,7 +1,5 @@
 import Foundation
 
-typealias ICProperty = (name: String, value: String)
-
 public struct ICParser {
 
     public init() {}
@@ -73,9 +71,9 @@ public struct ICParser {
         // Split by \n
         let properties: [ICProperty] = unfoldedICS
             .components(separatedBy: "\n")
-            .map { $0.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: true) }
-            .filter { $0.count > 1 }
-            .map { (String($0[0]), String($0[1])) }
+            .map { ICProperty.split($0, separator: ":", maxSplits: 1) }
+            .filter { $0.count > 1 && !$0[0].isEmpty }
+            .map { ICProperty($0[0], $0[1]) }
 
         return properties
     }
@@ -85,7 +83,7 @@ public struct ICParser {
         from elements: [ICProperty]
     ) -> ICProperty? {
         elements
-            .filter { $0.name.hasPrefix(name) }
+            .filter { $0.baseName == name }
             .first
     }
 
@@ -102,8 +100,8 @@ public struct ICParser {
     ) -> [ICComponent] {
 
         var found = [ICComponent]()
-        var currentComponent: [(String, String)]?
-        var childComponent: [(String, String)]?
+        var currentComponent: [ICProperty]?
+        var childComponent: [ICProperty]?
 
         for element in elements {
             if element.name == Constant.Property.begin,
@@ -246,7 +244,7 @@ public struct ICParser {
 
         guard
             let dtStart = PropertyBuilder.buildDateTime(
-                from: (name: Constant.Property.dtStart, value: dtStartValue)
+                from: ICProperty(Constant.Property.dtStart, dtStartValue)
             )?.date
         else { return nil }
 
