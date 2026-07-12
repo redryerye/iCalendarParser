@@ -9,7 +9,7 @@ struct ICComponent {
         name: String
     ) -> ICProperty? {
         return properties
-            .filter { $0.name.hasPrefix(name) }
+            .filter { $0.baseName == name }
             .first
     }
 
@@ -18,7 +18,7 @@ struct ICComponent {
         name: String
     ) -> [ICProperty]? {
         return properties
-            .filter { $0.name.hasPrefix(name) }
+            .filter { $0.baseName == name }
     }
 
     // MARK: - Build property
@@ -135,7 +135,7 @@ struct ICComponent {
         from elements: [ICProperty]
     ) -> ICProperty? {
         return elements
-            .filter { $0.name.hasPrefix(name) }
+            .filter { $0.baseName == name }
             .first
     }
 }

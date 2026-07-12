@@ -70,9 +70,9 @@ iCalendarParser is currently not feature complete yet. While it requires an addi
   - [ ] Apply `RDATE`
   - [ ] Handle `RECURRENCE-ID` overrides
 - [ ] Property parameters
-  - [ ] Preserve common parameters on parsed properties
-  - [ ] Support quoted parameter values
-  - [ ] Support multi-value parameters
+  - [x] Preserve common parameters on parsed properties
+  - [x] Support quoted parameter values
+  - [x] Support multi-value parameters
   - [ ] Support `ALTREP`, `LANGUAGE`, `CN`, `ROLE`, `PARTSTAT`, `RSVP`, `TZID`, and `VALUE`
 - [ ] Value types
   - [x] Parse `DATE`

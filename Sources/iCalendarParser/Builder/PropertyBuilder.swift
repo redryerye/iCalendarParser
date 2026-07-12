@@ -7,9 +7,8 @@ struct PropertyBuilder {
     static func buildDateTime(
         from prop: ICProperty
     ) -> ICDateTime? {
-        let params = getParamsOfValue(from: prop.name)
-        let valueType = getDateTimeType(from: params)
-        let tzid = getTimeZoneId(from: params)
+        let valueType = getDateTimeType(from: prop.parameters)
+        let tzid = getTimeZoneId(from: prop.parameters)
 
         guard
             let date = valueType.dateFormatter(tzId: tzid).date(from: prop.value)
@@ -32,7 +31,7 @@ struct PropertyBuilder {
             prop.value
                 .components(separatedBy: ",")
                 .compactMap { value in
-                    buildDateTime(from: (name: prop.name, value: value))
+                    buildDateTime(from: ICProperty(prop.name, value))
                 }
         }
     }
@@ -47,7 +46,7 @@ struct PropertyBuilder {
     static func buildRRule(
         from prop: ICProperty
     ) -> ICRRule? {
-        let params = getParamsOfValue(from: prop.value)
+        let params = getProperties(from: prop.value)
         let frequencyProperty = params
             .filter { $0.name == Constant.Property.frequency }
             .first
@@ -101,18 +100,17 @@ struct PropertyBuilder {
         return props.map { prop -> ICAttendee in
             var attendee = ICAttendee()
 
-            let params = getParamsOfValue(from: prop.name)
-            params.forEach { property in
-                switch property.name {
+            prop.parameters.forEach { parameter in
+                switch parameter.name {
                 case Constant.Property.cname:
-                    attendee.cname = property.value
+                    attendee.cname = parameter.value
                 case Constant.Property.partstat:
-                    attendee.participationStatus = ParticipationStatus(rawValue: property.value)
+                    attendee.participationStatus = ParticipationStatus(rawValue: parameter.value)
                 default:
                     if attendee.nonStandardProperties == nil {
                         attendee.nonStandardProperties = [:]
                     }
-                    attendee.nonStandardProperties?[property.name] = property.value
+                    attendee.nonStandardProperties?[parameter.name] = parameter.value
                 }
             }
 
@@ -130,20 +128,20 @@ struct PropertyBuilder {
     // MARK: - Private functions
 
     /// Returns an array of params for the given value
-    private static func getParamsOfValue(
+    private static func getProperties(
         from value: String
     ) -> [ICProperty] {
-        return value.components(separatedBy: ";")
-            .map { $0.components(separatedBy: "=") }
+        return ICProperty.split(value, separator: ";")
+            .map { ICProperty.split($0, separator: "=", maxSplits: 1) }
             .filter { $0.count > 1 }
-            .map { ($0[0], $0[1]) }
+            .map { ICProperty($0[0], $0[1]) }
     }
 
     /// Returns `ICDateTimeType` from the given properties
     ///
     /// The default value is `.dateTime` if no property is found
     private static func getDateTimeType(
-        from params: [ICProperty]
+        from params: [ICParameter]
     ) -> DateTimeType {
         guard
             let valueType = params.first(where: {
@@ -163,7 +161,7 @@ struct PropertyBuilder {
 
     /// Returns the ID for Timezone component
     private static func getTimeZoneId(
-        from parameters: [ICProperty]
+        from parameters: [ICParameter]
     ) -> String? {
         return parameters.first(where: {
             $0.name == Constant.Property.tzId

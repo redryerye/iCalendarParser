@@ -52,4 +52,35 @@ final class GetPropertiesTests: XCTestCase {
 
         XCTAssertEqual(properties.first?.value, "HelloWorld")
     }
+
+    func testParsesQuotedParameterValues() throws {
+        let rawIcs = #"ATTENDEE;CN="Doe, John";ROLE=REQ-PARTICIPANT:mailto:john@example.com"#
+
+        let property = try XCTUnwrap(ICParser().getProperties(from: rawIcs).first)
+
+        XCTAssertEqual(property.baseName, "ATTENDEE")
+        XCTAssertEqual(property.parameters.first(where: { $0.name == "CN" })?.value, "Doe, John")
+        XCTAssertEqual(
+            property.parameters.first(where: { $0.name == "ROLE" })?.value,
+            "REQ-PARTICIPANT"
+        )
+    }
+
+    func testParsesMultiValueParameterValues() throws {
+        let rawIcs = #"ATTENDEE;MEMBER="mailto:a@example.com","mailto:b@example.com":mailto:c@example.com"#
+
+        let property = try XCTUnwrap(ICParser().getProperties(from: rawIcs).first)
+        let member = try XCTUnwrap(property.parameters.first(where: { $0.name == "MEMBER" }))
+
+        XCTAssertEqual(member.values, ["mailto:a@example.com", "mailto:b@example.com"])
+    }
+
+    func testParsesColonInsideQuotedParameterValue() throws {
+        let rawIcs = #"ATTENDEE;CN="Team: Calendar":mailto:team@example.com"#
+
+        let property = try XCTUnwrap(ICParser().getProperties(from: rawIcs).first)
+
+        XCTAssertEqual(property.value, "mailto:team@example.com")
+        XCTAssertEqual(property.parameters.first(where: { $0.name == "CN" })?.value, "Team: Calendar")
+    }
 }
