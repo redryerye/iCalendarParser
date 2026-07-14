@@ -42,6 +42,22 @@ struct PropertyBuilder {
         ICDuration(rawValue: prop.value)
     }
 
+    static func buildGeoPosition(
+        from prop: ICProperty
+    ) -> ICGeoPosition? {
+        let components = prop.value.components(separatedBy: ";")
+
+        guard
+            components.count == 2,
+            let latitude = Double(components[0]),
+            let longitude = Double(components[1])
+        else {
+            return nil
+        }
+
+        return ICGeoPosition(latitude: latitude, longitude: longitude)
+    }
+
     static func buildPeriod(
         from prop: ICProperty
     ) -> ICPeriod? {

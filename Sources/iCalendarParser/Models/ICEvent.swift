@@ -99,12 +99,12 @@ public struct ICEvent: ICComponentable {
     /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.5.1)
     public var exceptionDates: [ICDateTime]?
 
-    // Specifies information related to the global position for the activity specified by
-    // a calendar component.
-    //
-    // See more in [RFC 5545](
-    // https://www.rfc-editor.org/rfc/rfc5545#section-3.8.1.6)
-    // var geoPosition: [CGFloat]?
+    /// Specifies information related to the global position for the activity specified by
+    /// a calendar component.
+    ///
+    /// See more in [RFC 5545](
+    /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.1.6)
+    public var geoPosition: ICGeoPosition?
 
     /// Any property name with a "X-" prefix
     ///
@@ -223,6 +223,7 @@ public struct ICEvent: ICComponentable {
         dtStart: ICDateTime? = nil,
         duration: ICDuration? = nil,
         exceptionDates: [ICDateTime]? = nil,
+        geoPosition: ICGeoPosition? = nil,
         lastModified: Date? = nil,
         location: String? = nil,
         nonStandardProperties: [String: String]? = nil,
@@ -252,6 +253,7 @@ public struct ICEvent: ICComponentable {
         self.dtStart = dtStart
         self.duration = duration
         self.exceptionDates = exceptionDates
+        self.geoPosition = geoPosition
         self.lastModified = lastModified
         self.location = location
         self.nonStandardProperties = nonStandardProperties

@@ -185,6 +185,27 @@ final class ICParserTests: XCTestCase {
         XCTAssertEqual(attendee.rsvp, true)
     }
 
+    func testEventGeoPosition() throws {
+        let iCalString = """
+        BEGIN:VCALENDAR\r
+        VERSION:2.0\r
+        PRODID:-//Example Inc//Calendar//EN\r
+        BEGIN:VEVENT\r
+        UID:geo-test\r
+        DTSTAMP:20240728T120000Z\r
+        GEO:37.386013;-122.082932\r
+        END:VEVENT\r
+        END:VCALENDAR
+        """
+
+        let calendar = try XCTUnwrap(sut.calendar(from: iCalString))
+        let event = try XCTUnwrap(calendar.events.first)
+        let geoPosition = try XCTUnwrap(event.geoPosition)
+
+        XCTAssertEqual(geoPosition.latitude, 37.386013)
+        XCTAssertEqual(geoPosition.longitude, -122.082932)
+    }
+
     func testEventAttachments() throws {
         let iCalString = """
         BEGIN:VCALENDAR\r
