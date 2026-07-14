@@ -148,4 +148,29 @@ final class ICParserTests: XCTestCase {
         XCTAssertEqual(duration.minutes, 30)
         XCTAssertNil(duration.seconds)
     }
+
+    func testEventAttachments() throws {
+        let iCalString = """
+        BEGIN:VCALENDAR\r
+        VERSION:2.0\r
+        PRODID:-//Example Inc//Calendar//EN\r
+        BEGIN:VEVENT\r
+        UID:attachment-test\r
+        DTSTAMP:20240728T120000Z\r
+        ATTACH;FMTTYPE=application/pdf:https://example.com/agenda.pdf\r
+        ATTACH:https://example.com/notes.txt\r
+        END:VEVENT\r
+        END:VCALENDAR
+        """
+
+        let calendar = try XCTUnwrap(sut.calendar(from: iCalString))
+        let event = try XCTUnwrap(calendar.events.first)
+        let attachments = try XCTUnwrap(event.attachments)
+
+        XCTAssertEqual(attachments.count, 2)
+        XCTAssertEqual(attachments[0].formatType, "application/pdf")
+        XCTAssertEqual(attachments[0].url?.absoluteString, "https://example.com/agenda.pdf")
+        XCTAssertEqual(attachments[0].value, "https://example.com/agenda.pdf")
+        XCTAssertEqual(attachments[1].url?.absoluteString, "https://example.com/notes.txt")
+    }
 }

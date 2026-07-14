@@ -59,7 +59,7 @@ iCalendarParser is currently not feature complete yet. While it requires an addi
   - [x] Add `COMMENT`, `CONTACT`, and `RESOURCES`
   - [x] Add `EXDATE` and `RDATE`
   - [x] Add `DURATION`
-  - [ ] Add `ATTACH`
+  - [x] Add `ATTACH`
   - [ ] Add `GEO`
   - [ ] Add `RELATED-TO`
   - [ ] Add `REQUEST-STATUS`
