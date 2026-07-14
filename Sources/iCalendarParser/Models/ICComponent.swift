@@ -4,6 +4,13 @@ struct ICComponent {
     let properties: [ICProperty]
     let childProperties: [ICProperty]
 
+    var contentProperties: [ICProperty] {
+        properties.filter {
+            $0.baseName != Constant.Property.begin &&
+                $0.baseName != Constant.Property.end
+        }
+    }
+
     /// Returns a property that matches the name
     func getProperty(
         name: String
