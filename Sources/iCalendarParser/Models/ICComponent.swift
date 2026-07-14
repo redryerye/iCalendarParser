@@ -78,6 +78,17 @@ struct ICComponent {
         return PropertyBuilder.buildDuration(from: prop)
     }
 
+    /// Returns `ICGeoPosition` from properties
+    func buildProperty(
+        of name: String
+    ) -> ICGeoPosition? {
+        guard let prop = getProperty(name: name) else {
+            return nil
+        }
+
+        return PropertyBuilder.buildGeoPosition(from: prop)
+    }
+
     /// Returns `[Attendee]` from properties
     func buildAttendees(
         of name: String

@@ -162,6 +162,7 @@ public struct ICParser {
             event.dtStart = component.buildProperty(of: Constant.Property.dtStart)
             event.duration = component.buildProperty(of: Constant.Property.duration)
             event.exceptionDates = component.buildDateTimes(of: Constant.Property.exceptionDates)
+            event.geoPosition = component.buildProperty(of: Constant.Property.geoPosition)
             event.lastModified = component.buildProperty(of: Constant.Property.lastModified)?.date
             event.location = component.buildProperty(of: Constant.Property.location)
             event.organizer = component.buildProperty(of: Constant.Property.organizer)
