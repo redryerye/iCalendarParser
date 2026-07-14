@@ -58,6 +58,29 @@ struct PropertyBuilder {
         return ICGeoPosition(latitude: latitude, longitude: longitude)
     }
 
+    static func buildPeriod(
+        from prop: ICProperty
+    ) -> ICPeriod? {
+        let components = ICProperty.split(prop.value, separator: "/", maxSplits: 1)
+
+        guard
+            components.count == 2,
+            let start = buildDateTime(from: ICProperty(prop.name, components[0]))
+        else {
+            return nil
+        }
+
+        if let duration = ICDuration(rawValue: components[1]) {
+            return ICPeriod(duration: duration, rawValue: prop.value, start: start)
+        }
+
+        guard let end = buildDateTime(from: ICProperty(prop.name, components[1])) else {
+            return nil
+        }
+
+        return ICPeriod(end: end, rawValue: prop.value, start: start)
+    }
+
     // swiftlint:disable:next cyclomatic_complexity
     static func buildRRule(
         from prop: ICProperty
@@ -115,6 +138,7 @@ struct PropertyBuilder {
     ) -> [ICAttendee]? {
         return props.map { prop -> ICAttendee in
             var attendee = ICAttendee()
+            attendee.parameters = prop.parameters
 
             prop.parameters.forEach { parameter in
                 switch parameter.name {
@@ -122,6 +146,18 @@ struct PropertyBuilder {
                     attendee.cname = parameter.value
                 case Constant.Property.partstat:
                     attendee.participationStatus = ParticipationStatus(rawValue: parameter.value)
+                case Constant.Property.role:
+                    attendee.role = parameter.value
+                    if attendee.nonStandardProperties == nil {
+                        attendee.nonStandardProperties = [:]
+                    }
+                    attendee.nonStandardProperties?[parameter.name] = parameter.value
+                case Constant.Property.rsvp:
+                    attendee.rsvp = parameter.value.uppercased() == "TRUE"
+                    if attendee.nonStandardProperties == nil {
+                        attendee.nonStandardProperties = [:]
+                    }
+                    attendee.nonStandardProperties?[parameter.name] = parameter.value
                 default:
                     if attendee.nonStandardProperties == nil {
                         attendee.nonStandardProperties = [:]
@@ -132,6 +168,20 @@ struct PropertyBuilder {
 
             attendee.email = prop.value.replacingOccurrences(of: "mailto:", with: "")
             return attendee
+        }
+    }
+
+    static func buildAttachments(
+        from props: [ICProperty]
+    ) -> [ICAttachment] {
+        props.map { prop in
+            ICAttachment(
+                formatType: prop.parameters.first {
+                    $0.name == Constant.Property.formatType
+                }?.value,
+                url: URL(string: prop.value),
+                value: prop.value
+            )
         }
     }
 

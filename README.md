@@ -59,7 +59,7 @@ iCalendarParser is currently not feature complete yet. While it requires an addi
   - [x] Add `COMMENT`, `CONTACT`, and `RESOURCES`
   - [x] Add `EXDATE` and `RDATE`
   - [x] Add `DURATION`
-  - [ ] Add `ATTACH`
+  - [x] Add `ATTACH`
   - [x] Add `GEO`
   - [ ] Add `RELATED-TO`
   - [ ] Add `REQUEST-STATUS`
@@ -73,12 +73,12 @@ iCalendarParser is currently not feature complete yet. While it requires an addi
   - [x] Preserve common parameters on parsed properties
   - [x] Support quoted parameter values
   - [x] Support multi-value parameters
-  - [ ] Support `ALTREP`, `LANGUAGE`, `CN`, `ROLE`, `PARTSTAT`, `RSVP`, `TZID`, and `VALUE`
+  - [x] Support `ALTREP`, `LANGUAGE`, `CN`, `ROLE`, `PARTSTAT`, `RSVP`, `TZID`, and `VALUE`
 - [ ] Value types
   - [x] Parse `DATE`
   - [x] Parse `DATE-TIME`
   - [ ] Parse `DURATION`
-  - [ ] Parse `PERIOD`
+  - [x] Parse `PERIOD`
   - [ ] Parse `URI`
   - [ ] Parse `UTC-OFFSET`
 - [ ] Serialization

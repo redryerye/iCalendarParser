@@ -4,6 +4,13 @@ struct ICComponent {
     let properties: [ICProperty]
     let childProperties: [ICProperty]
 
+    var contentProperties: [ICProperty] {
+        properties.filter {
+            $0.baseName != Constant.Property.begin &&
+                $0.baseName != Constant.Property.end
+        }
+    }
+
     /// Returns a property that matches the name
     func getProperty(
         name: String
@@ -98,6 +105,17 @@ struct ICComponent {
         }
 
         return PropertyBuilder.buildAttendees(from: props)
+    }
+
+    /// Returns `[ICAttachment]` from properties
+    func buildAttachments(
+        of name: String
+    ) -> [ICAttachment]? {
+        guard let props = getProperties(name: name), !props.isEmpty else {
+            return nil
+        }
+
+        return PropertyBuilder.buildAttachments(from: props)
     }
 
     /// Returns category TEXT values from all matching properties.
