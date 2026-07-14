@@ -65,6 +65,7 @@ extension Constant {
         static let cname = "CN"
 
         static let attachment: String = "ATTACH"
+        static let formatType: String = "FMTTYPE"
         static let categories: String = "CATEGORIES"
         static let comment: String = "COMMENT"
         static let contact: String = "CONTACT"

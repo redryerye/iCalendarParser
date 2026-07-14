@@ -151,6 +151,7 @@ public struct ICParser {
             var event = ICEvent()
 
             event.attendees = component.buildAttendees(of: Constant.Property.attendee)
+            event.attachments = component.buildAttachments(of: Constant.Property.attachment)
             event.categories = component.buildCategories(of: Constant.Property.categories)
             event.classification = component.buildProperty(of: Constant.Property.classification)
             event.comments = component.buildCategories(of: Constant.Property.comment)

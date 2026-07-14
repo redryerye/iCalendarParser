@@ -17,11 +17,11 @@ public struct ICEvent: ICComponentable {
     /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.4.1)
     public var attendees: [ICAttendee]?
 
-    // Provides the capability to associate a document object with a calendar component.
-    //
-    // See more in [RFC 5545](
-    // https://www.rfc-editor.org/rfc/rfc5545#section-3.8.1.1))
-    // var attachment: [ICAttachment]?
+    /// Provides the capability to associate a document object with a calendar component.
+    ///
+    /// See more in [RFC 5545](
+    /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.1.1)
+    public var attachments: [ICAttachment]?
 
      public var categories: [String]?
 
@@ -211,6 +211,7 @@ public struct ICEvent: ICComponentable {
 
     public init(
         attendees: [ICAttendee]? = nil,
+        attachments: [ICAttachment]? = nil,
         categories: [String]? = nil,
         classification: String? = nil,
         comments: [String]? = nil,
@@ -239,6 +240,7 @@ public struct ICEvent: ICComponentable {
         url: URL? = nil
     ) {
         self.attendees = attendees
+        self.attachments = attachments
         self.categories = categories
         self.classification = classification
         self.comments = comments

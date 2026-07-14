@@ -96,6 +96,17 @@ struct ICComponent {
         return PropertyBuilder.buildAttendees(from: props)
     }
 
+    /// Returns `[ICAttachment]` from properties
+    func buildAttachments(
+        of name: String
+    ) -> [ICAttachment]? {
+        guard let props = getProperties(name: name), !props.isEmpty else {
+            return nil
+        }
+
+        return PropertyBuilder.buildAttachments(from: props)
+    }
+
     /// Returns category TEXT values from all matching properties.
     func buildCategories(
         of name: String

@@ -132,6 +132,20 @@ struct PropertyBuilder {
         }
     }
 
+    static func buildAttachments(
+        from props: [ICProperty]
+    ) -> [ICAttachment] {
+        props.map { prop in
+            ICAttachment(
+                formatType: prop.parameters.first {
+                    $0.name == Constant.Property.formatType
+                }?.value,
+                url: URL(string: prop.value),
+                value: prop.value
+            )
+        }
+    }
+
     static func buildCategories(
         from props: [ICProperty]
     ) -> [String] {
