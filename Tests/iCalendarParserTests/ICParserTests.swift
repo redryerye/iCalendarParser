@@ -148,4 +148,40 @@ final class ICParserTests: XCTestCase {
         XCTAssertEqual(duration.minutes, 30)
         XCTAssertNil(duration.seconds)
     }
+
+    func testEventExposesPropertyParameters() throws {
+        let iCalString = """
+        BEGIN:VCALENDAR\r
+        VERSION:2.0\r
+        PRODID:-//Example Inc//Calendar//EN\r
+        BEGIN:VEVENT\r
+        UID:property-parameters-test\r
+        DTSTAMP:20240728T120000Z\r
+        DTSTART;TZID=Europe/Paris:20240801T120000\r
+        DTEND;VALUE=DATE:20240802\r
+        SUMMARY;LANGUAGE=en;ALTREP="https://example.com/event":Board meeting\r
+        ATTENDEE;CN="Doe, John";ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE:mailto:john@example.com\r
+        END:VEVENT\r
+        END:VCALENDAR
+        """
+
+        let calendar = try XCTUnwrap(sut.calendar(from: iCalString))
+        let event = try XCTUnwrap(calendar.events.first)
+        let properties = try XCTUnwrap(event.properties)
+        let summary = try XCTUnwrap(properties.first(where: { $0.baseName == "SUMMARY" }))
+        let dtStart = try XCTUnwrap(properties.first(where: { $0.baseName == "DTSTART" }))
+        let dtEnd = try XCTUnwrap(properties.first(where: { $0.baseName == "DTEND" }))
+        let attendee = try XCTUnwrap(event.attendees?.first)
+
+        XCTAssertEqual(summary.parameters.first(where: { $0.name == "LANGUAGE" })?.value, "en")
+        XCTAssertEqual(summary.parameters.first(where: { $0.name == "ALTREP" })?.value, "https://example.com/event")
+        XCTAssertEqual(dtStart.parameters.first(where: { $0.name == "TZID" })?.value, "Europe/Paris")
+        XCTAssertEqual(dtEnd.parameters.first(where: { $0.name == "VALUE" })?.value, "DATE")
+        XCTAssertEqual(event.dtStart?.tzId, "Europe/Paris")
+        XCTAssertEqual(event.dtEnd?.type, .date)
+        XCTAssertEqual(attendee.cname, "Doe, John")
+        XCTAssertEqual(attendee.role, "REQ-PARTICIPANT")
+        XCTAssertEqual(attendee.participationStatus, .accepted)
+        XCTAssertEqual(attendee.rsvp, true)
+    }
 }

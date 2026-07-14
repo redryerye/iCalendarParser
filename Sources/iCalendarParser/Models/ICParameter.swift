@@ -1,14 +1,14 @@
 import Foundation
 
-struct ICParameter: Equatable {
-    let name: String
-    let values: [String]
+public struct ICParameter: Equatable {
+    public let name: String
+    public let values: [String]
 
-    var value: String {
+    public var value: String {
         values.joined(separator: ",")
     }
 
-    init(
+    public init(
         name: String,
         values: [String]
     ) {
