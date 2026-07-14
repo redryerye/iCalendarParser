@@ -42,6 +42,29 @@ struct PropertyBuilder {
         ICDuration(rawValue: prop.value)
     }
 
+    static func buildPeriod(
+        from prop: ICProperty
+    ) -> ICPeriod? {
+        let components = ICProperty.split(prop.value, separator: "/", maxSplits: 1)
+
+        guard
+            components.count == 2,
+            let start = buildDateTime(from: ICProperty(prop.name, components[0]))
+        else {
+            return nil
+        }
+
+        if let duration = ICDuration(rawValue: components[1]) {
+            return ICPeriod(duration: duration, rawValue: prop.value, start: start)
+        }
+
+        guard let end = buildDateTime(from: ICProperty(prop.name, components[1])) else {
+            return nil
+        }
+
+        return ICPeriod(end: end, rawValue: prop.value, start: start)
+    }
+
     // swiftlint:disable:next cyclomatic_complexity
     static func buildRRule(
         from prop: ICProperty
