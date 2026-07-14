@@ -88,4 +88,24 @@ final class AttendeesTests: XCTestCase {
 
         XCTAssertEqual(partstat, .accepted)
     }
+
+    func testAttendeeExposesRoleRsvpAndParameters() throws {
+        let propertyName = """
+        ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;\
+        RSVP=TRUE;CN=test@example.com;X-NUM-GUESTS=0
+        """
+        let property = ICProperty(
+            propertyName,
+            "mailto:test@example.com"
+        )
+
+        let attendee = try XCTUnwrap(PropertyBuilder.buildAttendees(from: [property])?.first)
+
+        XCTAssertEqual(attendee.cname, "test@example.com")
+        XCTAssertEqual(attendee.participationStatus, .accepted)
+        XCTAssertEqual(attendee.role, "REQ-PARTICIPANT")
+        XCTAssertEqual(attendee.rsvp, true)
+        XCTAssertEqual(attendee.parameters?.first(where: { $0.name == "ROLE" })?.value, "REQ-PARTICIPANT")
+        XCTAssertEqual(attendee.parameters?.first(where: { $0.name == "RSVP" })?.value, "TRUE")
+    }
 }

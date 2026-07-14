@@ -139,6 +139,9 @@ public struct ICEvent: ICComponentable {
     /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.1.9)
     public var priority: Int?
 
+    /// Parsed event properties, including each property's parameters.
+    public var properties: [ICProperty]?
+
     /// This property is used in conjunction with the `UID` and `SEQUENCE` properties
     /// to identify a specific instance of a recurring `VEVENT`, `VTODO`, or `VJOURNAL`
     /// calendar component. The property value is the original value of the `DTSTART` property
@@ -225,6 +228,7 @@ public struct ICEvent: ICComponentable {
         nonStandardProperties: [String: String]? = nil,
         organizer: String? = nil,
         priority: Int? = nil,
+        properties: [ICProperty]? = nil,
         recurrenceDates: [ICDateTime]? = nil,
         recurrenceId: ICDateTime? = nil,
         resources: [String]? = nil,
@@ -253,6 +257,7 @@ public struct ICEvent: ICComponentable {
         self.nonStandardProperties = nonStandardProperties
         self.organizer = organizer
         self.priority = priority
+        self.properties = properties
         self.recurrenceDates = recurrenceDates
         self.recurrenceId = recurrenceId
         self.resources = resources

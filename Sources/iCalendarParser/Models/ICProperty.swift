@@ -1,15 +1,15 @@
 import Foundation
 
-struct ICProperty: Equatable {
-    let name: String
-    let value: String
-    let parameters: [ICParameter]
+public struct ICProperty: Equatable {
+    public let name: String
+    public let value: String
+    public let parameters: [ICParameter]
 
-    var baseName: String {
+    public var baseName: String {
         name.split(separator: ";", maxSplits: 1).first.map(String.init) ?? name
     }
 
-    init(
+    public init(
         _ name: String,
         _ value: String
     ) {

@@ -99,6 +99,7 @@ struct PropertyBuilder {
     ) -> [ICAttendee]? {
         return props.map { prop -> ICAttendee in
             var attendee = ICAttendee()
+            attendee.parameters = prop.parameters
 
             prop.parameters.forEach { parameter in
                 switch parameter.name {
@@ -106,6 +107,18 @@ struct PropertyBuilder {
                     attendee.cname = parameter.value
                 case Constant.Property.partstat:
                     attendee.participationStatus = ParticipationStatus(rawValue: parameter.value)
+                case Constant.Property.role:
+                    attendee.role = parameter.value
+                    if attendee.nonStandardProperties == nil {
+                        attendee.nonStandardProperties = [:]
+                    }
+                    attendee.nonStandardProperties?[parameter.name] = parameter.value
+                case Constant.Property.rsvp:
+                    attendee.rsvp = parameter.value.uppercased() == "TRUE"
+                    if attendee.nonStandardProperties == nil {
+                        attendee.nonStandardProperties = [:]
+                    }
+                    attendee.nonStandardProperties?[parameter.name] = parameter.value
                 default:
                     if attendee.nonStandardProperties == nil {
                         attendee.nonStandardProperties = [:]
