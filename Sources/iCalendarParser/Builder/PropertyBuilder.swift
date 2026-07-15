@@ -81,6 +81,12 @@ struct PropertyBuilder {
         return ICPeriod(end: end, rawValue: prop.value, start: start)
     }
 
+    static func buildUtcOffset(
+        from prop: ICProperty
+    ) -> ICUtcOffset? {
+        ICUtcOffset(rawValue: prop.value)
+    }
+
     // swiftlint:disable:next cyclomatic_complexity
     static func buildRRule(
         from prop: ICProperty
