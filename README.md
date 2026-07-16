@@ -62,7 +62,7 @@ iCalendarParser is currently not feature complete yet. While it requires an addi
   - [x] Add `ATTACH`
   - [x] Add `GEO`
   - [x] Add `RELATED-TO`
-  - [ ] Add `REQUEST-STATUS`
+  - [x] Add `REQUEST-STATUS`
 - [ ] Recurrence
   - [x] Parse basic `RRULE`
   - [ ] Expand recurring events into instances

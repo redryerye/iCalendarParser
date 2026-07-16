@@ -172,6 +172,7 @@ public struct ICParser {
             event.relatedTo = component.buildCategories(of: Constant.Property.relatedTo)
             event.recurrenceDates = component.buildDateTimes(of: Constant.Property.recurrenceDates)
             event.recurrenceId = component.buildProperty(of: Constant.Property.recurrenceId)
+            event.requestStatuses = component.buildRequestStatuses(of: Constant.Property.requestStatus)
             event.resources = component.buildCategories(of: Constant.Property.resources)
             event.sequence = component.buildProperty(of: Constant.Property.sequence)
             event.status = component.buildProperty(of: Constant.Property.status)

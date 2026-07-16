@@ -170,7 +170,11 @@ public struct ICEvent: ICComponentable {
     /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.4.5)
     public var relatedTo: [String]?
 
-    // var requestStatus
+    /// Defines the status code returned for a scheduling request.
+    ///
+    /// See more in [RFC 5545](
+    /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.8.3)
+    public var requestStatuses: [ICRequestStatus]?
 
     /// Defines the equipment or resources anticipated for an activity specified by a calendar component.
     ///
@@ -238,6 +242,7 @@ public struct ICEvent: ICComponentable {
         relatedTo: [String]? = nil,
         recurrenceDates: [ICDateTime]? = nil,
         recurrenceId: ICDateTime? = nil,
+        requestStatuses: [ICRequestStatus]? = nil,
         resources: [String]? = nil,
         sequence: Int? = nil,
         status: String? = nil,
@@ -269,6 +274,7 @@ public struct ICEvent: ICComponentable {
         self.relatedTo = relatedTo
         self.recurrenceDates = recurrenceDates
         self.recurrenceId = recurrenceId
+        self.requestStatuses = requestStatuses
         self.resources = resources
         self.sequence = sequence
         self.status = status

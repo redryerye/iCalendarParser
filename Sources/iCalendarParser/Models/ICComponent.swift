@@ -141,6 +141,18 @@ struct ICComponent {
         return dateTimes.isEmpty ? nil : dateTimes
     }
 
+    /// Returns request-status values from all matching properties.
+    func buildRequestStatuses(
+        of name: String
+    ) -> [ICRequestStatus]? {
+        guard let props = getProperties(name: name), !props.isEmpty else {
+            return nil
+        }
+
+        let requestStatuses = props.compactMap { ICRequestStatus(rawValue: $0.value) }
+        return requestStatuses.isEmpty ? nil : requestStatuses
+    }
+
     /// Returns all non-standard properties if exists
     func getNonStandardProperties() -> [String: String]? {
         var dict = [String: String]()
