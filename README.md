@@ -84,7 +84,7 @@ iCalendarParser is currently not feature complete yet. While it requires an addi
 - [ ] Serialization
   - [ ] Format calendars back to valid `.ics`
   - [x] Fold long lines correctly
-  - [ ] Escape text values correctly
+  - [x] Escape text values correctly
 - [ ] Validation
   - [ ] Validate required properties per component
   - [x] Validate mutually exclusive properties, such as `DTEND` and `DURATION`
