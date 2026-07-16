@@ -169,6 +169,7 @@ public struct ICParser {
             event.organizer = component.buildProperty(of: Constant.Property.organizer)
             event.priority = component.buildProperty(of: Constant.Property.priority)
             event.properties = component.contentProperties
+            event.relatedTo = component.buildCategories(of: Constant.Property.relatedTo)
             event.recurrenceDates = component.buildDateTimes(of: Constant.Property.recurrenceDates)
             event.recurrenceId = component.buildProperty(of: Constant.Property.recurrenceId)
             event.resources = component.buildCategories(of: Constant.Property.resources)

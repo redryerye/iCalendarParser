@@ -206,6 +206,26 @@ final class ICParserTests: XCTestCase {
         XCTAssertEqual(geoPosition.longitude, -122.082932)
     }
 
+    func testEventRelatedToProperties() throws {
+        let iCalString = """
+        BEGIN:VCALENDAR\r
+        VERSION:2.0\r
+        PRODID:-//Example Inc//Calendar//EN\r
+        BEGIN:VEVENT\r
+        UID:child-event\r
+        DTSTAMP:20240728T120000Z\r
+        RELATED-TO:parent-event\r
+        RELATED-TO;RELTYPE=SIBLING:sibling-event\r
+        END:VEVENT\r
+        END:VCALENDAR
+        """
+
+        let calendar = try XCTUnwrap(sut.calendar(from: iCalString))
+        let event = try XCTUnwrap(calendar.events.first)
+
+        XCTAssertEqual(event.relatedTo, ["parent-event", "sibling-event"])
+    }
+
     func testEventAttachments() throws {
         let iCalString = """
         BEGIN:VCALENDAR\r
