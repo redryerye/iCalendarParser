@@ -80,14 +80,14 @@ iCalendarParser is currently not feature complete yet. While it requires an addi
   - [ ] Parse `DURATION`
   - [x] Parse `PERIOD`
   - [ ] Parse `URI`
-  - [ ] Parse `UTC-OFFSET`
+  - [x] Parse `UTC-OFFSET`
 - [ ] Serialization
   - [ ] Format calendars back to valid `.ics`
-  - [ ] Fold long lines correctly
+  - [x] Fold long lines correctly
   - [ ] Escape text values correctly
 - [ ] Validation
   - [ ] Validate required properties per component
-  - [ ] Validate mutually exclusive properties, such as `DTEND` and `DURATION`
+  - [x] Validate mutually exclusive properties, such as `DTEND` and `DURATION`
   - [ ] Validate property cardinality rules
 - [ ] Compatibility
   - [ ] Preserve unknown standard properties
