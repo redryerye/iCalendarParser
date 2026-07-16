@@ -163,7 +163,12 @@ public struct ICEvent: ICComponentable {
     // https://www.rfc-editor.org/rfc/rfc5545#section-3.8.5.3)
     public var recurrenceRule: ICRRule?
 
-    // var relatedTo: [String]?
+    /// Represents a relationship or reference between one calendar component
+    /// and another.
+    ///
+    /// See more in [RFC 5545](
+    /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.4.5)
+    public var relatedTo: [String]?
 
     // var requestStatus
 
@@ -230,6 +235,7 @@ public struct ICEvent: ICComponentable {
         organizer: String? = nil,
         priority: Int? = nil,
         properties: [ICProperty]? = nil,
+        relatedTo: [String]? = nil,
         recurrenceDates: [ICDateTime]? = nil,
         recurrenceId: ICDateTime? = nil,
         resources: [String]? = nil,
@@ -260,6 +266,7 @@ public struct ICEvent: ICComponentable {
         self.organizer = organizer
         self.priority = priority
         self.properties = properties
+        self.relatedTo = relatedTo
         self.recurrenceDates = recurrenceDates
         self.recurrenceId = recurrenceId
         self.resources = resources

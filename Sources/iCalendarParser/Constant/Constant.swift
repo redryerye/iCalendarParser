@@ -82,6 +82,7 @@ extension Constant {
         static let location: String = "LOCATION"
         static let organizer: String = "ORGANIZER"
         static let priority: String = "PRIORITY"
+        static let relatedTo: String = "RELATED-TO"
         static let recurrenceDates: String = "RDATE"
         static let recurrenceId: String = "RECURRENCE-ID"
         static let recurrenceRule: String = "RRULE"
