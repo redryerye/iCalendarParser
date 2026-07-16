@@ -185,7 +185,7 @@ struct PropertyBuilder {
                 formatType: prop.parameters.first {
                     $0.name == Constant.Property.formatType
                 }?.value,
-                url: URL(string: prop.value),
+                url: ICURI(rawValue: prop.value)?.url,
                 value: prop.value
             )
         }
