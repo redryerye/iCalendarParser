@@ -206,6 +206,33 @@ final class ICParserTests: XCTestCase {
         XCTAssertEqual(geoPosition.longitude, -122.082932)
     }
 
+    func testEventRequestStatusProperties() throws {
+        let iCalString = """
+        BEGIN:VCALENDAR\r
+        VERSION:2.0\r
+        PRODID:-//Example Inc//Calendar//EN\r
+        BEGIN:VEVENT\r
+        UID:request-status-test\r
+        DTSTAMP:20240728T120000Z\r
+        REQUEST-STATUS:2.0;Success\r
+        REQUEST-STATUS:3.7;Invalid calendar user;ATTENDEE\r
+        END:VEVENT\r
+        END:VCALENDAR
+        """
+
+        let calendar = try XCTUnwrap(sut.calendar(from: iCalString))
+        let event = try XCTUnwrap(calendar.events.first)
+        let requestStatuses = try XCTUnwrap(event.requestStatuses)
+
+        XCTAssertEqual(requestStatuses.count, 2)
+        XCTAssertEqual(requestStatuses[0].code, "2.0")
+        XCTAssertEqual(requestStatuses[0].description, "Success")
+        XCTAssertNil(requestStatuses[0].exceptionData)
+        XCTAssertEqual(requestStatuses[1].code, "3.7")
+        XCTAssertEqual(requestStatuses[1].description, "Invalid calendar user")
+        XCTAssertEqual(requestStatuses[1].exceptionData, "ATTENDEE")
+    }
+
     func testEventAttachments() throws {
         let iCalString = """
         BEGIN:VCALENDAR\r
