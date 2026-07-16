@@ -96,6 +96,17 @@ struct ICComponent {
         return PropertyBuilder.buildGeoPosition(from: prop)
     }
 
+    /// Returns `URL` from URI properties
+    func buildURI(
+        of name: String
+    ) -> URL? {
+        guard let prop = getProperty(name: name) else {
+            return nil
+        }
+
+        return ICURI(rawValue: prop.value)?.url
+    }
+
     /// Returns `[Attendee]` from properties
     func buildAttendees(
         of name: String
