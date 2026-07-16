@@ -78,4 +78,31 @@ struct ICFormatter {
     ) -> String {
         lines.map(foldLine).joined(separator: "\r\n")
     }
+
+    /// Escapes a TEXT value for iCalendar serialization.
+    static func escapeTextValue(
+        _ value: String
+    ) -> String {
+        let normalizedValue = value
+            .replacingOccurrences(of: "\r\n", with: "\n")
+            .replacingOccurrences(of: "\r", with: "\n")
+        var escaped = ""
+
+        for character in normalizedValue {
+            switch character {
+            case "\\":
+                escaped.append("\\\\")
+            case ";":
+                escaped.append("\\;")
+            case ",":
+                escaped.append("\\,")
+            case "\n":
+                escaped.append("\\n")
+            default:
+                escaped.append(character)
+            }
+        }
+
+        return escaped
+    }
 }

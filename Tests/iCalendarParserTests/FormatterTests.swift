@@ -43,4 +43,22 @@ final class FormatterTests: XCTestCase {
         XCTAssertTrue(folded.contains("SUMMARY:Short\r\nDESCRIPTION:"))
         XCTAssertTrue(folded.contains("\r\n "))
     }
+
+    func testEscapeTextValueEscapesReservedCharacters() {
+        let value = "Board, product; roadmap \\ review"
+
+        XCTAssertEqual(
+            ICFormatter.escapeTextValue(value),
+            "Board\\, product\\; roadmap \\\\ review"
+        )
+    }
+
+    func testEscapeTextValueEscapesLineBreaks() {
+        let value = "Line 1\r\nLine 2\rLine 3\nLine 4"
+
+        XCTAssertEqual(
+            ICFormatter.escapeTextValue(value),
+            "Line 1\\nLine 2\\nLine 3\\nLine 4"
+        )
+    }
 }
