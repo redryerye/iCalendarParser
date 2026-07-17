@@ -77,7 +77,7 @@ iCalendarParser is currently not feature complete yet. While it requires an addi
 - [ ] Value types
   - [x] Parse `DATE`
   - [x] Parse `DATE-TIME`
-  - [ ] Parse `DURATION`
+  - [x] Parse `DURATION`
   - [x] Parse `PERIOD`
   - [x] Parse `URI`
   - [x] Parse `UTC-OFFSET`
