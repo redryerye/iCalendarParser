@@ -10,6 +10,11 @@
 
 A [RFC 5545](https://www.ietf.org/rfc/rfc5545.txt) compatible parser for iCalendar files in Swift.
 
+> [!NOTE]
+> This repository has moved to [redryerye/iCalendarParser](https://github.com/redryerye/iCalendarParser).
+> Existing references to the old repository URL should continue to work through GitHub redirects,
+> but new package installations and contributions should use the new URL.
+
 ## Installation
 
 To use `iCalendarParser` just add it as Swift Package Manager dependency:
