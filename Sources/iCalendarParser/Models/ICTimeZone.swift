@@ -16,6 +16,9 @@ public struct ICTimeZone: ICComponentable {
     /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.8.2)
     public var nonStandardProperties: [String: String]?
 
+    /// Any property with an "X-" prefix, including parameters.
+    public var nonStandardPropertyDetails: [ICProperty]?
+
     public var standard: ICSubTimeZone?
 
     /// Specifies the text value that uniquely identifies the "VTIMEZONE" calendar
@@ -35,12 +38,14 @@ public struct ICTimeZone: ICComponentable {
     public init(
         daylight: ICSubTimeZone? = nil,
         nonStandardProperties: [String: String]? = nil,
+        nonStandardPropertyDetails: [ICProperty]? = nil,
         standard: ICSubTimeZone? = nil,
         timeZoneId: String,
         timeZoneUrl: URL? = nil
     ) {
         self.daylight = daylight
         self.nonStandardProperties = nonStandardProperties
+        self.nonStandardPropertyDetails = nonStandardPropertyDetails
         self.standard = standard
         self.timeZoneId = timeZoneId
         self.timeZoneUrl = timeZoneUrl

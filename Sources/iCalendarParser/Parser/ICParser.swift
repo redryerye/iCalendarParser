@@ -183,6 +183,7 @@ public struct ICParser {
             event.recurrenceRule = component.buildProperty(of: Constant.Property.recurrenceRule)
 
             event.nonStandardProperties = component.getNonStandardProperties()
+            event.nonStandardPropertyDetails = component.getNonStandardPropertyDetails()
 
             return event
         }
@@ -222,10 +223,12 @@ public struct ICParser {
             }
 
             let nonStandardProperties = component.getNonStandardProperties()
+            let nonStandardPropertyDetails = component.getNonStandardPropertyDetails()
 
             return ICTimeZone(
                 daylight: daylight,
                 nonStandardProperties: nonStandardProperties,
+                nonStandardPropertyDetails: nonStandardPropertyDetails,
                 standard: standard,
                 timeZoneId: tzid
             )
