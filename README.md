@@ -91,7 +91,7 @@ iCalendarParser is currently not feature complete yet. While it requires an addi
   - [ ] Validate property cardinality rules
 - [ ] Compatibility
   - [ ] Preserve unknown standard properties
-  - [ ] Preserve `X-` properties and parameters
+  - [x] Preserve `X-` properties and parameters
   - [ ] Add fixture coverage from real-world calendars
 
 ## Contributing

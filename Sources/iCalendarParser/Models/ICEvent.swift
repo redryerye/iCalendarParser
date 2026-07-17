@@ -112,6 +112,9 @@ public struct ICEvent: ICComponentable {
     /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.8.2)
     public var nonStandardProperties: [String: String]?
 
+    /// Any property with an "X-" prefix, including parameters.
+    public var nonStandardPropertyDetails: [ICProperty]?
+
     /// Specifies the date and time that the information associated with the calendar
     /// component was last revised in the calendar store.
     ///
@@ -236,6 +239,7 @@ public struct ICEvent: ICComponentable {
         lastModified: Date? = nil,
         location: String? = nil,
         nonStandardProperties: [String: String]? = nil,
+        nonStandardPropertyDetails: [ICProperty]? = nil,
         organizer: String? = nil,
         priority: Int? = nil,
         properties: [ICProperty]? = nil,
@@ -268,6 +272,7 @@ public struct ICEvent: ICComponentable {
         self.lastModified = lastModified
         self.location = location
         self.nonStandardProperties = nonStandardProperties
+        self.nonStandardPropertyDetails = nonStandardPropertyDetails
         self.organizer = organizer
         self.priority = priority
         self.properties = properties

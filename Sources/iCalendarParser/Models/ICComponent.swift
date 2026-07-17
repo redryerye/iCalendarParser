@@ -179,6 +179,15 @@ struct ICComponent {
         return dict
     }
 
+    /// Returns all non-standard properties, including parameters.
+    func getNonStandardPropertyDetails() -> [ICProperty]? {
+        let properties = properties.filter {
+            $0.baseName.hasPrefix("X-")
+        }
+
+        return properties.isEmpty ? nil : properties
+    }
+
     // MARK: - Private functions
 
     /// Returns a property that matches the name in the given properties
