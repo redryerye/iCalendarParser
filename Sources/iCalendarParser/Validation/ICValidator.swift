@@ -12,6 +12,10 @@ public struct ICValidator {
             errors.append(.missingProductIdentifier)
         }
 
+        if calendar.version.isEmpty {
+            errors.append(.missingCalendarVersion)
+        }
+
         calendar.events.forEach { event in
             errors.append(contentsOf: validate(event))
         }
@@ -30,6 +34,10 @@ public struct ICValidator {
 
         if isMissingProperty(Constant.Property.dtStamp, in: event) {
             errors.append(.missingEventDateStamp(uid: event.uid))
+        }
+
+        if isMissingProperty(Constant.Property.dtStart, in: event) {
+            errors.append(.missingEventDateStart(uid: event.uid))
         }
 
         if event.dtEnd != nil, event.duration != nil {

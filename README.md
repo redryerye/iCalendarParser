@@ -86,7 +86,7 @@ iCalendarParser is currently not feature complete yet. While it requires an addi
   - [x] Fold long lines correctly
   - [x] Escape text values correctly
 - [ ] Validation
-  - [ ] Validate required properties per component
+  - [x] Validate required properties per component
   - [x] Validate mutually exclusive properties, such as `DTEND` and `DURATION`
   - [ ] Validate property cardinality rules
 - [ ] Compatibility

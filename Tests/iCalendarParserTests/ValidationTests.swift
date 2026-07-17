@@ -10,6 +10,17 @@ final class ValidationTests: XCTestCase {
         XCTAssertEqual(errors, [.missingProductIdentifier])
     }
 
+    func testCalendarValidationRequiresVersion() {
+        let calendar = ICalendar(
+            productId: ICProductIdentifier("-//Example Inc//Calendar//EN"),
+            version: ""
+        )
+
+        let errors = ICValidator().validate(calendar)
+
+        XCTAssertEqual(errors, [.missingCalendarVersion])
+    }
+
     func testEventValidationRequiresUIDWhenParsedPropertiesAreAvailable() throws {
         let calendar = try XCTUnwrap(ICParser().calendar(from: """
         BEGIN:VCALENDAR\r
@@ -17,6 +28,7 @@ final class ValidationTests: XCTestCase {
         PRODID:-//Example Inc//Calendar//EN\r
         BEGIN:VEVENT\r
         DTSTAMP:20240728T120000Z\r
+        DTSTART:20240728T120000Z\r
         END:VEVENT\r
         END:VCALENDAR
         """))
@@ -33,6 +45,7 @@ final class ValidationTests: XCTestCase {
         PRODID:-//Example Inc//Calendar//EN\r
         BEGIN:VEVENT\r
         UID:missing-dtstamp-test\r
+        DTSTART:20240728T120000Z\r
         END:VEVENT\r
         END:VCALENDAR
         """))
@@ -40,6 +53,23 @@ final class ValidationTests: XCTestCase {
         let errors = ICValidator().validate(calendar)
 
         XCTAssertEqual(errors, [.missingEventDateStamp(uid: "missing-dtstamp-test")])
+    }
+
+    func testEventValidationRequiresDateStartWhenParsedPropertiesAreAvailable() throws {
+        let calendar = try XCTUnwrap(ICParser().calendar(from: """
+        BEGIN:VCALENDAR\r
+        VERSION:2.0\r
+        PRODID:-//Example Inc//Calendar//EN\r
+        BEGIN:VEVENT\r
+        UID:missing-dtstart-test\r
+        DTSTAMP:20240728T120000Z\r
+        END:VEVENT\r
+        END:VCALENDAR
+        """))
+
+        let errors = ICValidator().validate(calendar)
+
+        XCTAssertEqual(errors, [.missingEventDateStart(uid: "missing-dtstart-test")])
     }
 
     func testEventValidationRejectsDateEndAndDurationTogether() {
