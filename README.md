@@ -93,7 +93,7 @@ iCalendarParser is currently not feature complete yet. While it requires an addi
 - [ ] Validation
   - [x] Validate required properties per component
   - [x] Validate mutually exclusive properties, such as `DTEND` and `DURATION`
-  - [ ] Validate property cardinality rules
+  - [x] Validate property cardinality rules
 - [ ] Compatibility
   - [ ] Preserve unknown standard properties
   - [x] Preserve `X-` properties and parameters
