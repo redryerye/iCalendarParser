@@ -7,4 +7,5 @@ public enum ICValidationError: Equatable {
     case missingEventDateStart(uid: String)
     case missingEventUID
     case mutuallyExclusiveEventDateEndAndDuration(uid: String)
+    case duplicateEventProperty(uid: String, propertyName: String)
 }
