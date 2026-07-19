@@ -17,6 +17,9 @@ public struct ICEvent: ICComponentable {
     /// https://www.rfc-editor.org/rfc/rfc5545#section-3.8.4.1)
     public var attendees: [ICAttendee]?
 
+    /// Alarm components associated with the event.
+    public var alarms: [ICAlarm]?
+
     /// Provides the capability to associate a document object with a calendar component.
     ///
     /// See more in [RFC 5545](
@@ -222,6 +225,7 @@ public struct ICEvent: ICComponentable {
     public var url: URL?
 
     public init(
+        alarms: [ICAlarm]? = nil,
         attendees: [ICAttendee]? = nil,
         attachments: [ICAttachment]? = nil,
         categories: [String]? = nil,
@@ -255,6 +259,7 @@ public struct ICEvent: ICComponentable {
         uid: String = UUID().uuidString,
         url: URL? = nil
     ) {
+        self.alarms = alarms
         self.attendees = attendees
         self.attachments = attachments
         self.categories = categories
