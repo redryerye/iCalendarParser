@@ -9,6 +9,7 @@ public enum Constant {
         public static let daylight = "DAYLIGHT"
         public static let event = "VEVENT"
         public static let timeZone = "VTIMEZONE"
+        public static let todo = "VTODO"
         public static let standard = "STANDARD"
     }
 
@@ -72,6 +73,7 @@ extension Constant {
         static let created: String = "CREATED"
         static let classification: String = "CLASS"
         static let description: String = "DESCRIPTION"
+        static let due: String = "DUE"
         static let dtStart: String = "DTSTART"
         static let dtEnd: String = "DTEND"
         static let dtStamp: String = "DTSTAMP"
@@ -81,6 +83,7 @@ extension Constant {
         static let lastModified: String = "LAST-MODIFIED"
         static let location: String = "LOCATION"
         static let organizer: String = "ORGANIZER"
+        static let percentComplete: String = "PERCENT-COMPLETE"
         static let priority: String = "PRIORITY"
         static let relatedTo: String = "RELATED-TO"
         static let recurrenceDates: String = "RDATE"
