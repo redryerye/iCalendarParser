@@ -8,6 +8,7 @@ public enum Constant {
         public static let alarm = "VALARM"
         public static let daylight = "DAYLIGHT"
         public static let event = "VEVENT"
+        public static let journal = "VJOURNAL"
         public static let timeZone = "VTIMEZONE"
         public static let standard = "STANDARD"
     }
