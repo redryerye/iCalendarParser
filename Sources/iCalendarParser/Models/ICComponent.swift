@@ -152,6 +152,25 @@ struct ICComponent {
         return dateTimes.isEmpty ? nil : dateTimes
     }
 
+    /// Returns period values from all matching properties.
+    func buildPeriods(
+        of name: String
+    ) -> [ICPeriod]? {
+        guard let props = getProperties(name: name), !props.isEmpty else {
+            return nil
+        }
+
+        let periods = props.flatMap { prop in
+            prop.value
+                .components(separatedBy: ",")
+                .compactMap {
+                    PropertyBuilder.buildPeriod(from: ICProperty(prop.name, $0))
+                }
+        }
+
+        return periods.isEmpty ? nil : periods
+    }
+
     /// Returns request-status values from all matching properties.
     func buildRequestStatuses(
         of name: String

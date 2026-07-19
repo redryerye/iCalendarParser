@@ -7,7 +7,7 @@ import Foundation
 public struct ICalendar {
 
     var components: [ICComponentable] {
-        [events, timeZones]
+        [events, freeBusy, timeZones]
             .compactMap { $0 as? [ICComponentable] }
             .flatMap { $0 }
     }
@@ -25,6 +25,9 @@ public struct ICalendar {
 
     /// All the event components in the object
     public var events: [ICEvent]
+
+    /// All the free/busy components in the object.
+    public var freeBusy: [ICFreeBusy]
 
     /// iCalendar object method associated with the calendar object.
     ///
@@ -74,6 +77,7 @@ public struct ICalendar {
     public init(
         calendarScale: String? = Constant.ICalSpec.defaultCalScale,
         events: [ICEvent] = [],
+        freeBusy: [ICFreeBusy] = [],
         method: String? = nil,
         productId: ICProductIdentifier,
         timeZones: [ICTimeZone] = [],
@@ -81,6 +85,7 @@ public struct ICalendar {
     ) {
         self.calendarScale = calendarScale
         self.events = events
+        self.freeBusy = freeBusy
         self.method = method
         self.productId = productId
         self.timeZones = timeZones
@@ -92,6 +97,7 @@ extension ICalendar: Equatable {
     public static func == (lhs: ICalendar, rhs: ICalendar) -> Bool {
         lhs.calendarScale == rhs.calendarScale
         && lhs.events == rhs.events
+        && lhs.freeBusy == rhs.freeBusy
         && lhs.method == rhs.method
         && lhs.productId == rhs.productId
         && lhs.timeZones == rhs.timeZones

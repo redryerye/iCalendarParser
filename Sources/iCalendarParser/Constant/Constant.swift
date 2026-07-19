@@ -8,6 +8,7 @@ public enum Constant {
         public static let alarm = "VALARM"
         public static let daylight = "DAYLIGHT"
         public static let event = "VEVENT"
+        public static let freeBusy = "VFREEBUSY"
         public static let timeZone = "VTIMEZONE"
         public static let standard = "STANDARD"
     }
@@ -66,6 +67,7 @@ extension Constant {
 
         static let attachment: String = "ATTACH"
         static let formatType: String = "FMTTYPE"
+        static let freeBusy: String = "FREEBUSY"
         static let categories: String = "CATEGORIES"
         static let comment: String = "COMMENT"
         static let contact: String = "CONTACT"
