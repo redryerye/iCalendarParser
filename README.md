@@ -58,7 +58,7 @@ iCalendarParser is currently not feature complete yet. While it requires an addi
   - [x] Parse `VTIMEZONE`
   - [ ] Parse `VTODO`
   - [ ] Parse `VJOURNAL`
-  - [ ] Parse `VFREEBUSY`
+  - [x] Parse `VFREEBUSY`
   - [ ] Parse `VALARM`
 - [ ] `VEVENT` properties
   - [x] Add `COMMENT`, `CONTACT`, and `RESOURCES`

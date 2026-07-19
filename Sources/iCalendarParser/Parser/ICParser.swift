@@ -41,17 +41,24 @@ public struct ICParser {
             from: elements
         )
 
+        let freeBusyComponents = getComponents(
+            type: .freeBusy,
+            from: elements
+        )
+
         let timeZoneComponents = getComponents(
             type: .timeZone,
             from: elements
         )
 
         let events = buildEvents(from: eventComponents)
+        let freeBusy = buildFreeBusy(from: freeBusyComponents)
         let timeZones = buildTimeZones(from: timeZoneComponents)
 
         return ICalendar(
             calendarScale: calendarScale,
             events: events,
+            freeBusy: freeBusy,
             method: method,
             productId: prodId,
             timeZones: timeZones
@@ -231,6 +238,23 @@ public struct ICParser {
                 nonStandardPropertyDetails: nonStandardPropertyDetails,
                 standard: standard,
                 timeZoneId: tzid
+            )
+        }
+    }
+
+    private func buildFreeBusy(
+        from components: [ICComponent]
+    ) -> [ICFreeBusy] {
+        components.map { component in
+            ICFreeBusy(
+                dtEnd: component.buildProperty(of: Constant.Property.dtEnd),
+                dtStamp: component.buildProperty(of: Constant.Property.dtStamp)?.date,
+                dtStart: component.buildProperty(of: Constant.Property.dtStart),
+                freeBusy: component.buildPeriods(of: Constant.Property.freeBusy),
+                organizer: component.buildProperty(of: Constant.Property.organizer),
+                properties: component.contentProperties,
+                uid: component.buildProperty(of: Constant.Property.uid) ?? "",
+                url: component.buildURI(of: Constant.Property.url)
             )
         }
     }
