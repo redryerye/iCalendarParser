@@ -41,17 +41,24 @@ public struct ICParser {
             from: elements
         )
 
+        let journalComponents = getComponents(
+            type: .journal,
+            from: elements
+        )
+
         let timeZoneComponents = getComponents(
             type: .timeZone,
             from: elements
         )
 
         let events = buildEvents(from: eventComponents)
+        let journals = buildJournals(from: journalComponents)
         let timeZones = buildTimeZones(from: timeZoneComponents)
 
         return ICalendar(
             calendarScale: calendarScale,
             events: events,
+            journals: journals,
             method: method,
             productId: prodId,
             timeZones: timeZones
@@ -231,6 +238,22 @@ public struct ICParser {
                 nonStandardPropertyDetails: nonStandardPropertyDetails,
                 standard: standard,
                 timeZoneId: tzid
+            )
+        }
+    }
+
+    private func buildJournals(
+        from components: [ICComponent]
+    ) -> [ICJournal] {
+        components.map { component in
+            ICJournal(
+                description: component.buildProperty(of: Constant.Property.description),
+                dtStamp: component.buildProperty(of: Constant.Property.dtStamp)?.date,
+                dtStart: component.buildProperty(of: Constant.Property.dtStart),
+                properties: component.contentProperties,
+                status: component.buildProperty(of: Constant.Property.status),
+                summary: component.buildProperty(of: Constant.Property.summary),
+                uid: component.buildProperty(of: Constant.Property.uid) ?? ""
             )
         }
     }
