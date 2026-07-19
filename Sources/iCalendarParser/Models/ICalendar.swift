@@ -7,7 +7,7 @@ import Foundation
 public struct ICalendar {
 
     var components: [ICComponentable] {
-        [events, timeZones]
+        [events, timeZones, todos]
             .compactMap { $0 as? [ICComponentable] }
             .flatMap { $0 }
     }
@@ -46,6 +46,9 @@ public struct ICalendar {
     /// one time zone and end in another.
     public var timeZones: [ICTimeZone]
 
+    /// All the to-do components in the object.
+    public var todos: [ICToDo]
+
     /// Returns an event only when there is one event component
     public var uniqueEvent: ICEvent? {
         guard events.count == 1 else {
@@ -77,6 +80,7 @@ public struct ICalendar {
         method: String? = nil,
         productId: ICProductIdentifier,
         timeZones: [ICTimeZone] = [],
+        todos: [ICToDo] = [],
         version: String = Constant.ICalSpec.version
     ) {
         self.calendarScale = calendarScale
@@ -84,6 +88,7 @@ public struct ICalendar {
         self.method = method
         self.productId = productId
         self.timeZones = timeZones
+        self.todos = todos
         self.version = version
     }
 }
@@ -95,6 +100,7 @@ extension ICalendar: Equatable {
         && lhs.method == rhs.method
         && lhs.productId == rhs.productId
         && lhs.timeZones == rhs.timeZones
+        && lhs.todos == rhs.todos
         && lhs.version == rhs.version
     }
 }

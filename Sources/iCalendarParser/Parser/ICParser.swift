@@ -46,15 +46,22 @@ public struct ICParser {
             from: elements
         )
 
+        let todoComponents = getComponents(
+            type: .todo,
+            from: elements
+        )
+
         let events = buildEvents(from: eventComponents)
         let timeZones = buildTimeZones(from: timeZoneComponents)
+        let todos = buildToDos(from: todoComponents)
 
         return ICalendar(
             calendarScale: calendarScale,
             events: events,
             method: method,
             productId: prodId,
-            timeZones: timeZones
+            timeZones: timeZones,
+            todos: todos
         )
     }
 
@@ -231,6 +238,25 @@ public struct ICParser {
                 nonStandardPropertyDetails: nonStandardPropertyDetails,
                 standard: standard,
                 timeZoneId: tzid
+            )
+        }
+    }
+
+    private func buildToDos(
+        from components: [ICComponent]
+    ) -> [ICToDo] {
+        components.map { component in
+            ICToDo(
+                description: component.buildProperty(of: Constant.Property.description),
+                dtStamp: component.buildProperty(of: Constant.Property.dtStamp)?.date,
+                dtStart: component.buildProperty(of: Constant.Property.dtStart),
+                due: component.buildProperty(of: Constant.Property.due),
+                percentComplete: component.buildProperty(of: Constant.Property.percentComplete),
+                priority: component.buildProperty(of: Constant.Property.priority),
+                properties: component.contentProperties,
+                status: component.buildProperty(of: Constant.Property.status),
+                summary: component.buildProperty(of: Constant.Property.summary),
+                uid: component.buildProperty(of: Constant.Property.uid) ?? ""
             )
         }
     }
