@@ -150,6 +150,12 @@ public struct ICParser {
         return components.map { component -> ICEvent in
             var event = ICEvent()
 
+            let alarmComponents = getComponents(
+                name: Constant.Component.alarm,
+                from: component.childProperties
+            )
+
+            event.alarms = buildAlarms(from: alarmComponents)
             event.attendees = component.buildAttendees(of: Constant.Property.attendee)
             event.attachments = component.buildAttachments(of: Constant.Property.attachment)
             event.categories = component.buildCategories(of: Constant.Property.categories)
@@ -186,6 +192,26 @@ public struct ICParser {
             event.nonStandardPropertyDetails = component.getNonStandardPropertyDetails()
 
             return event
+        }
+    }
+
+    private func buildAlarms(
+        from components: [ICComponent]
+    ) -> [ICAlarm]? {
+        guard !components.isEmpty else {
+            return nil
+        }
+
+        return components.map { component in
+            ICAlarm(
+                action: component.buildProperty(of: Constant.Property.action),
+                description: component.buildProperty(of: Constant.Property.description),
+                duration: component.buildProperty(of: Constant.Property.duration),
+                properties: component.contentProperties,
+                repeatCount: component.buildProperty(of: Constant.Property.repeatCount),
+                summary: component.buildProperty(of: Constant.Property.summary),
+                trigger: component.buildProperty(of: Constant.Property.trigger)
+            )
         }
     }
 
