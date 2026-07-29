@@ -86,4 +86,48 @@ final class ValidationTests: XCTestCase {
             [.mutuallyExclusiveEventDateEndAndDuration(uid: "mutually-exclusive-test")]
         )
     }
+
+    func testEventValidationRejectsDuplicateUniqueIdentifier() throws {
+        let calendar = try XCTUnwrap(ICParser().calendar(from: """
+        BEGIN:VCALENDAR\r
+        VERSION:2.0\r
+        PRODID:-//Example Inc//Calendar//EN\r
+        BEGIN:VEVENT\r
+        UID:duplicate-uid-test\r
+        UID:duplicate-uid-test-copy\r
+        DTSTAMP:20240728T120000Z\r
+        DTSTART:20240728T120000Z\r
+        END:VEVENT\r
+        END:VCALENDAR
+        """))
+
+        let errors = ICValidator().validate(calendar)
+
+        XCTAssertEqual(
+            errors,
+            [.duplicateEventProperty(uid: "duplicate-uid-test", propertyName: "UID")]
+        )
+    }
+
+    func testEventValidationRejectsDuplicateDateStart() throws {
+        let calendar = try XCTUnwrap(ICParser().calendar(from: """
+        BEGIN:VCALENDAR\r
+        VERSION:2.0\r
+        PRODID:-//Example Inc//Calendar//EN\r
+        BEGIN:VEVENT\r
+        UID:duplicate-dtstart-test\r
+        DTSTAMP:20240728T120000Z\r
+        DTSTART:20240728T120000Z\r
+        DTSTART:20240729T120000Z\r
+        END:VEVENT\r
+        END:VCALENDAR
+        """))
+
+        let errors = ICValidator().validate(calendar)
+
+        XCTAssertEqual(
+            errors,
+            [.duplicateEventProperty(uid: "duplicate-dtstart-test", propertyName: "DTSTART")]
+        )
+    }
 }
