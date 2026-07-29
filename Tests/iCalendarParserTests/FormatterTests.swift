@@ -2,6 +2,45 @@ import XCTest
 @testable import iCalendarParser
 
 final class FormatterTests: XCTestCase {
+    func testFormatCalendarWithEvent() throws {
+        let stamp = try XCTUnwrap(DateTimeType.dateTime.dateFormatter().date(from: "20240728T120000Z"))
+        let start = try XCTUnwrap(DateTimeType.date.dateFormatter().date(from: "20240729"))
+        let calendar = ICalendar(
+            events: [
+                ICEvent(
+                    categories: ["Board, Executive", "Planning"],
+                    description: "Line 1\nLine 2",
+                    dtStamp: stamp,
+                    dtStart: .date(from: start),
+                    location: "Room 1; East",
+                    summary: "Board, product; roadmap",
+                    uid: "format-test",
+                    url: URL(string: "https://example.com/events/1?source=calendar")
+                )
+            ],
+            productId: ICProductIdentifier("-//Example Inc//Calendar//EN")
+        )
+
+        let formatted = ICFormatter.format(calendar)
+
+        XCTAssertTrue(formatted.contains("BEGIN:VCALENDAR\r\n"))
+        XCTAssertTrue(formatted.contains("VERSION:2.0\r\n"))
+        XCTAssertTrue(formatted.contains("PRODID:-//Example Inc//Calendar//EN\r\n"))
+        XCTAssertTrue(formatted.contains("BEGIN:VEVENT\r\n"))
+        XCTAssertTrue(formatted.contains("UID:format-test\r\n"))
+        XCTAssertTrue(formatted.contains("DTSTAMP:20240728T120000Z\r\n"))
+        XCTAssertTrue(formatted.contains("DTSTART;VALUE=DATE:20240729\r\n"))
+        XCTAssertTrue(formatted.contains("SUMMARY:Board\\, product\\; roadmap\r\n"))
+        XCTAssertTrue(formatted.contains("DESCRIPTION:Line 1\\nLine 2\r\n"))
+        XCTAssertTrue(formatted.contains("LOCATION:Room 1\\; East\r\n"))
+        XCTAssertTrue(formatted.contains("CATEGORIES:Board\\, Executive,Planning\r\n"))
+        XCTAssertTrue(formatted.contains("URL:https://example.com/events/1?source=calendar\r\n"))
+        XCTAssertTrue(formatted.hasSuffix("END:VCALENDAR"))
+
+        let parsed = try XCTUnwrap(ICParser().calendar(from: formatted))
+        XCTAssertEqual(parsed.events.first?.uid, "format-test")
+    }
+
     func testFoldLineKeepsShortLineUnchanged() {
         let line = "SUMMARY:Board meeting"
 

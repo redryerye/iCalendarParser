@@ -87,7 +87,7 @@ iCalendarParser is currently not feature complete yet. While it requires an addi
   - [x] Parse `URI`
   - [x] Parse `UTC-OFFSET`
 - [ ] Serialization
-  - [ ] Format calendars back to valid `.ics`
+  - [x] Format calendars back to valid `.ics`
   - [x] Fold long lines correctly
   - [x] Escape text values correctly
 - [ ] Validation
